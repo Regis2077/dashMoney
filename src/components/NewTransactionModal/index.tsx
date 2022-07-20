@@ -2,7 +2,7 @@
 import Modal from 'react-modal'
 import { FormEvent, useContext, useState } from 'react';
 import { TransactionsContext } from '../../TransactionContext';
-import { api } from '../../services/api';
+//import { api } from '../../services/api';
 
 import closeImg from '../../assets/close.svg';
 import income from '../../assets/income.svg';
@@ -26,15 +26,21 @@ export function NewTransactionModal ( { isOpen, onRequestClose}: NewTransactionM
   const [amount, setAmount] = useState(0)
   const [category, setCategory] = useState('')
 
-  const handleCreateNewTransaction = (event: FormEvent) => {
+  const handleCreateNewTransaction = async (event: FormEvent) => {
     event.preventDefault(); 
 
-    createTransaction({
-      title,
-      amount,
-      category,
-      type
-    })
+    await createTransaction({
+        title,
+        amount,
+        category,
+        type
+      })
+      
+      setTitle('')
+      setAmount(0)
+      setCategory('')
+      setType('deposit')
+      onRequestClose();
   }
   return(
     <Modal 
@@ -69,7 +75,7 @@ export function NewTransactionModal ( { isOpen, onRequestClose}: NewTransactionM
             type="button"
             onClick={ () => {setType('deposit')}}
             isActive = { type === 'deposit'}
-            activeColor = 'green'
+            activeColor = 'green' 
             >
               <img src={income} alt="" />
               <span>Entrada</span>

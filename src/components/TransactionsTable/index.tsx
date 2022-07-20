@@ -31,9 +31,7 @@ return (
                         </td>
                         <td> 
                             {new Intl.DateTimeFormat('pt-BR')
-                                .format(
-                                    new Date(transaction.createdAt)
-                                    )
+                                .format(new Date(transaction.createdAt))
                             }
                         </td> 
                     </tr>
